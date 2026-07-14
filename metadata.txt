@@ -1,0 +1,16 @@
+[general]
+name=Smart Join
+qgisMinimumVersion=3.0
+description=Jointure floue (Fuzzy Join) entre deux couches vectorielles en utilisant la similarite de texte.
+version=1.1
+author=Malick Ndiaye
+email=ndiaye.malick1@uam.edu.sn
+about=Effectue une jointure attributaire en utilisant la similarite de textes pour eviter les problemes de fautes d'orthographes ou de casse. Developpe a l'universite Amadou Mahtar Mbow de Diamniadio (Dakar, Senegal).
+tracker=https://github.com/mlkk667/Smart-Join-QGIS/issues
+repository=https://github.com/mlkk667/Smart-Join-QGIS
+homepage=https://github.com/mlkk667/Smart-Join-QGIS
+category=Vector
+tags=join,fuzzy,vector,attributes,senegal
+icon=icon.png
+experimental=True
+changelog=Version 1.0: First release with Token Set Ratio and One-to-One assignments.
