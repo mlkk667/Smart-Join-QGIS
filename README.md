@@ -1,45 +1,35 @@
-# Smart-Join-QGIS
-Plugin QGIS pour faire des jointures floues intelligentes et éviter les doublon
+# Smart Join QGIS Plugin 🎯
 
+Un plugin QGIS développé par **Malick Ndiaye** à l'**Université Amadou Mahtar Mbow de Diamniadio (Dakar, Sénégal)**, conçu pour réaliser des jointures attributaires intelligentes (Fuzzy Matching).
 
-# Workflow de Développement : Plugin QGIS Jointure Intelligente (Fuzzy Join)
+## Pourquoi Smart Join ?
+La jointure classique dans QGIS échoue à la moindre faute de frappe, erreur d'encodage ou différence de casse. Smart Join utilise un algorithme d'Intelligence Artificielle basé sur le **Token Set Ratio** pour relier automatiquement des données imparfaites.
 
-Ce document décrit les étapes pour créer un plugin QGIS permettant de joindre deux couches attributaires en utilisant un algorithme d'intelligence (Fuzzy Matching) pour gérer les erreurs de frappe, la casse et les variations de texte (ex: "dakar" vs "Region Dakar").
+Par exemple :
+- `Dakar` se joindra parfaitement à `Département de Dakar` (100%)
+- `Kébémer` se joindra à `KÃ©bÃ©mÃ©r` (malgré les erreurs d'encodage UTF-8)
 
-## Étape 1 : Validation de l'algorithme d'IA / Correspondance
-1. **Objectif :** Choisir et tester la méthode de comparaison de texte.
-2. **Outils :** Python, bibliothèque `thefuzz` (FuzzyWuzzy) ou `difflib`.
-3. **Action :** Tester la distance de Levenshtein (calcul de similarité). Créer une fonction Python qui prend deux textes et renvoie un score de 0 à 100. Tester avec des exemples difficiles de vos données.
+## Fonctionnalités Principales ✨
+1. **Jointure Tolérante aux Fautes :** Choisissez le pourcentage de tolérance (ex: 70%) pour accepter une jointure.
+2. **Assignation Unique (1-à-1) :** Évite la duplication des données en forçant l'algorithme à faire correspondre une ligne source à un seul polygone cible (algorithme glouton de mariage stable).
+3. **Double Vérification Optionnelle :** Permet d'ajouter une condition stricte sur un deuxième champ. Par exemple, si le nom du département est "Bakel", on peut vérifier que la "Région" correspond parfaitement pour éviter de le joindre à "Mbacké".
 
-## Étape 2 : Création de l'interface graphique (UI)
-1. **Objectif :** Permettre à l'utilisateur de configurer la jointure.
-2. **Outils :** QGIS Plugin Builder 3, Qt Designer.
-3. **Action :**
-   - Générer le squelette du plugin.
-   - Créer une fenêtre avec :
-     - 2 listes déroulantes (ComboBox) pour choisir la **Couche 1** (Cible) et la **Couche 2** (Source).
-     - 2 listes déroulantes pour choisir le **Champ 1** et le **Champ 2** sur lesquels faire la jointure.
-     - 1 curseur (Slider) pour définir le **Seuil de tolérance** (ex: 80% de similarité requise pour accepter la jointure).
-     - Un bouton "Exécuter".
+## Installation 🚀
+1. Téléchargez le fichier `smart_join_plugin.zip` depuis cette page.
+2. Ouvrez QGIS.
+3. Allez dans le menu **Extensions > Installer/Gérer les extensions**.
+4. Cliquez sur l'onglet **Installer depuis un fichier ZIP**.
+5. Sélectionnez le fichier téléchargé et cliquez sur **Installer le plugin**.
+6. Une nouvelle icône "Smart Join" (Q avec des anneaux) apparaîtra dans votre barre d'outils !
 
-## Étape 3 : Logique de jointure (PyQGIS)
-1. **Objectif :** Lire les données de QGIS et appliquer l'algorithme.
-2. **Outils :** API PyQGIS (`QgsFeatureRequest`, `QgsVectorLayer`).
-3. **Action :**
-   - Récupérer toutes les valeurs du *Champ 2* (Source) et les stocker dans un dictionnaire.
-   - Parcourir chaque entité de la *Couche 1*.
-   - Prendre la valeur du *Champ 1*, utiliser l'algorithme (ex: `process.extractOne` de `thefuzz`) pour trouver la meilleure correspondance dans le dictionnaire Source.
-   - Si le score est supérieur au seuil choisi par l'utilisateur, associer les attributs.
+## Comment l'utiliser ?
+1. Sélectionnez la couche cible (celle qui recevra la donnée) et le champ de nom.
+2. Sélectionnez la couche source (CSV, Excel) et son champ de nom.
+3. (Optionnel) Cochez la double vérification et choisissez le champ Région.
+4. Ajustez le curseur de tolérance (70% ou 80% recommandés).
+5. Cliquez sur OK ! Une nouvelle couche `_joined` sera générée avec les données.
 
-## Étape 4 : Création de la couche de résultat
-1. **Objectif :** Sauvegarder la nouvelle donnée sans détruire l'ancienne.
-2. **Action :**
-   - Créer une nouvelle couche en mémoire (`memory`).
-   - Copier les géométries de la *Couche 1*.
-   - Ajouter les champs de la *Couche 1* PLUS les champs correspondants trouvés dans la *Couche 2*.
-   - Insérer les nouvelles entités et afficher la couche sur la carte.
-
-## Étape 5 : Finalisation
-1. **Action :**
-   - Gérer les correspondances multiples (cas où deux textes sont très proches).
-   - Ajouter un rapport à la fin ("X entités ont été jointes avec succès, Y n'ont pas trouvé de correspondance").
+## Auteur
+- **Malick Ndiaye**
+- Email : ndiaye.malick1@uam.edu.sn
+- Institution : Université Amadou Mahtar Mbow (UAM)
