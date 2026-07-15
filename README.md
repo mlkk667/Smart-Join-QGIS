@@ -1,6 +1,6 @@
 # Smart Join QGIS Plugin 🎯
 
-Un plugin QGIS développé par **Malick Ndiaye** à l'**Université Amadou Mahtar Mbow de Diamniadio (Dakar, Sénégal)**, conçu pour réaliser des jointures attributaires intelligentes (Fuzzy Matching).
+Un plugin QGIS développé par **Malick Ndiaye** etudient à l'**Université Amadou Mahtar Mbow de Diamniadio (Dakar, Sénégal)**, conçu pour réaliser des jointures attributaires intelligentes (Fuzzy Matching).
 
 ## Pourquoi Smart Join ?
 La jointure classique dans QGIS échoue à la moindre faute de frappe, erreur d'encodage ou différence de casse. Smart Join utilise un algorithme d'Intelligence Artificielle basé sur le **Token Set Ratio** pour relier automatiquement des données imparfaites.
